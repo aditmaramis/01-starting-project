@@ -1,12 +1,16 @@
+import { useState } from 'react';
 import Header from './components/Header/Header.jsx';
 import { CORE_CONCEPTS } from './data.js';
 import CoreConcept from './components/CoreConcept.jsx';
 import TabButton from './components/TabButton.jsx';
+import { EXAMPLES } from './data.js';
 
 function App() {
+	const [tabContent, setTabContent] = useState('components');
+
 	function handleSelect(selectedButton) {
-    // selectedButton => 'components', 'jsx', 'props', 'state'
-		console.log(`Tab selected: ${selectedButton}`);
+		// selectedButton => 'components', 'jsx', 'props', 'state'
+		setTabContent(selectedButton);
 	}
 
 	return (
@@ -25,12 +29,20 @@ function App() {
 				<section id="examples">
 					<h2>Examples</h2>
 					<menu>
-						<TabButton onSelect={() => handleSelect('components')}>Components</TabButton>
+						<TabButton onSelect={() => handleSelect('components')}>
+							Components
+						</TabButton>
 						<TabButton onSelect={() => handleSelect('jsx')}>JSX</TabButton>
 						<TabButton onSelect={() => handleSelect('props')}>Props</TabButton>
 						<TabButton onSelect={() => handleSelect('state')}>State</TabButton>
 					</menu>
-					Dynamic Content
+					<div id="tab-content">
+						<h3>{EXAMPLES[tabContent].title}</h3>
+						<p>{EXAMPLES[tabContent].description}</p>
+						<pre>
+							<code>{EXAMPLES[tabContent].code}</code>
+						</pre>
+					</div>
 				</section>
 			</main>
 		</div>
